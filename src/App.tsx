@@ -1,19 +1,18 @@
 import "./App.css";
-import AnitaList from "./components/AnitaList";
+import Alert from "./components/Alert";
+import AnitaButton from "./components/AnitaButton";
 
 function App() {
-  let items = ["toronto", "montreal", "ottawa", "vancouver"];
-  let heading = "Cities";
-  const handleSelectItem = (item: string) => {
-    console.log(item);
+  const onButtonClick = () => {
+    alert("hello2");
   };
+
   return (
     <>
-      <AnitaList
-        items={items}
-        heading={heading}
-        onSelectItem={handleSelectItem}
-      ></AnitaList>
+      <Alert>
+        Pay attention <span>fool</span>!
+      </Alert>
+      <AnitaButton onButtonClick={onButtonClick}>Anita Button</AnitaButton>
     </>
   );
 }
