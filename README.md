@@ -50,11 +50,33 @@ npm run dev
       i.e. const [ selectedItem, setSelectedItem ] = useState(-1);
     - State data is managed by a component and so is mutable (changeable)
     - Similar to a local variable
-  - Props:
+  - properties:
+
     - Input passed to a component
     - Similar to function arguments
     - Should be treated as immutable (unchangeable or read-only)
+    - children is a keyword used to show the property will be passed in as a child node
+      i.e. interface Props {
+      children: string
+      }
+      function Alert({children}:Props) {
+      ....
+      }
+      return default Alert;
+      ***
+      <Alert>Pay attention fool!</Alert>
+      ***
+      Note:
+      interface Props {
+      children: ReactNode // <- React Node allows embedded html. See below.
+      }
+      ***
+      <Alert>Pay attention <span>fool</span>!</Alert>
 
   ### JSX
 
   - There is no such thing as a for loop, so use the map function instead
+
+    ### ES7 + React/Redux/React-Navie snippets extension
+
+    - rafce : generates a React functional component with an export statement
