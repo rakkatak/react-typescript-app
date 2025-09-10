@@ -43,6 +43,17 @@ npm run dev
   - Can only return 1 element
     - To work around you can wrap with a div. This adds an div to the dom that really doesn't do anything.
     - Or, you can use a Fragment. This prevents the div added simply to make React compile. The following syntax can be used <></>
+    - Components can have state (see below) and be passed Props (see below)
+  - useState:
+    - This method returns an array with a variable and setter method
+    - You pass useState a default value
+      i.e. const [ selectedItem, setSelectedItem ] = useState(-1);
+    - State data is managed by a component and so is mutable (changeable)
+    - Similar to a local variable
+  - Props:
+    - Input passed to a component
+    - Similar to function arguments
+    - Should be treated as immutable (unchangeable or read-only)
 
   ### JSX
 

@@ -1,14 +1,21 @@
-function AnitaList() {
-  let items = ["toronto", "montreal", "ottawa", "vancouver"];
-  let selectedIndex = 0;
+import { useState } from "react";
 
+interface Props {
+  items: string[];
+  heading: string;
+  onSelectItem: (item: string) => void;
+}
+
+function AnitaList({ items, heading, onSelectItem }: Props) {
   const getMessage = () => {
     return items.length === 0 && "No items";
   };
 
+  const [selectedIndex, setSelectedIndex] = useState(-1);
+
   return (
     <>
-      <h1>List</h1>
+      <h1>{heading}</h1>
       {getMessage()}
       <ul className="list-group">
         {items.map((item, index) => {
@@ -21,8 +28,8 @@ function AnitaList() {
               }
               key={item}
               onClick={() => {
-                selectedIndex = index;
-                alert(index);
+                setSelectedIndex(index);
+                onSelectItem(item);
               }}
             >
               {item}
