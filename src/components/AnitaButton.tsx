@@ -3,8 +3,8 @@ import { ReactNode, useState } from "react";
 interface Props {
   children: ReactNode;
   handleButtonClick: () => void;
-  unclickedColor?: string;
-  clickedColor?: string;
+  unclickedColor?: "secondary" | "info";
+  clickedColor?: "primary" | "danger";
 }
 
 const AnitaButton = ({
