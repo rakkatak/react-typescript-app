@@ -1,24 +1,12 @@
 import "./App.css";
-import Alert from "./components/Alert";
-import AnitaButton from "./components/AnitaButton";
+import AlertButton from "./components/AlertButton";
 
 function App() {
-  const handleButtonClick = () => {
-    console.log("clicked");
-  };
+  let displayAlert = false;
 
   return (
     <>
-      <Alert>
-        Alert <span>fool!</span>
-      </Alert>
-      <AnitaButton
-        handleButtonClick={handleButtonClick}
-        unclickedColor="info"
-        clickedColor="danger"
-      >
-        Anita Button
-      </AnitaButton>
+      <AlertButton buttonColour="primary"></AlertButton>
     </>
   );
 }
