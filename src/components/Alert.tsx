@@ -2,16 +2,23 @@ import { ReactNode, useState } from "react";
 
 interface Props {
   children: ReactNode; // keyword use to define properties passed in as children
-  display?: boolean;
+  onClose: () => void;
 }
 
-const Alert = ({ children, display = false }: Props) => {
+const Alert = ({ children, onClose }: Props) => {
   let alertMarkup = <div></div>;
-  console.log("Alert display", display);
 
-  if (display) {
-    alertMarkup = <div className="alert alert-primary">{children}</div>;
-  }
+  alertMarkup = (
+    <div className="alert alert-primary alert-dismissible">
+      {children}
+      <button
+        type="button"
+        className="btn-close"
+        aria-label="Close"
+        onClick={onClose}
+      ></button>
+    </div>
+  );
   return alertMarkup;
 };
 
