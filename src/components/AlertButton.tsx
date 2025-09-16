@@ -7,7 +7,7 @@ interface Props {
 const AlertButton = ({ buttonColour }: Props) => {
   let [displayAlert, setDisplayAlert] = useState(false);
   const handleButtonClick = () => {
-    setDisplayAlert(!displayAlert);
+    setDisplayAlert(true);
     console.log(displayAlert);
   };
   return (
