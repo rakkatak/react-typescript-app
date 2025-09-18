@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./App.css";
 import AlertButton from "./components/AlertButton";
 import Alert from "./components/Alert";
+import AnitaList from "./components/AnitaList";
 
 function App() {
   let [displayAlert, setDisplayAlert] = useState(false);
@@ -15,6 +16,12 @@ function App() {
     setDisplayAlert(false);
   };
 
+  const onSelectListItem = (item: string) => {
+    console.log("Selected item:", item);
+  };
+
+  const cities = ["Toronto", "Montreal", "St Johns"];
+
   return (
     <>
       {displayAlert && <Alert onClose={onAlertClose}>Holy Guacamole</Alert>}
@@ -23,6 +30,12 @@ function App() {
         handleButtonClick={handleButtonClick}
         buttonColour="primary"
       ></AlertButton>
+
+      <AnitaList
+        items={cities}
+        heading={"Cool Cities"}
+        onSelectItem={onSelectListItem}
+      ></AnitaList>
     </>
   );
 }
