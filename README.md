@@ -80,3 +80,7 @@ npm run dev
     ### ES7 + React/Redux/React-Navie snippets extension
 
     - rafce : generates a React functional component with an export statement
+
+## Cohesion
+
+- Css files are in the same folder as the tsx files to have cohesion

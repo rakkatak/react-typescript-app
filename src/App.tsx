@@ -1,21 +1,7 @@
-import { useState } from "react";
 import "./App.css";
-import AlertButton from "./components/AlertButton";
-import Alert from "./components/Alert";
-import AnitaList from "./components/AnitaList";
+import ListGroup from "./components/ListGroup";
 
 function App() {
-  let [displayAlert, setDisplayAlert] = useState(false);
-  const handleButtonClick = () => {
-    console.log("handleButtonClick");
-    setDisplayAlert(true);
-  };
-
-  const onAlertClose = () => {
-    console.log("onAlertClose");
-    setDisplayAlert(false);
-  };
-
   const onSelectListItem = (item: string) => {
     console.log("Selected item:", item);
   };
@@ -24,18 +10,11 @@ function App() {
 
   return (
     <>
-      {displayAlert && <Alert onClose={onAlertClose}>Holy Guacamole</Alert>}
-
-      <AlertButton
-        handleButtonClick={handleButtonClick}
-        buttonColour="primary"
-      ></AlertButton>
-
-      <AnitaList
+      <ListGroup
         items={cities}
         heading={"Cool Cities"}
         onSelectItem={onSelectListItem}
-      ></AnitaList>
+      ></ListGroup>
     </>
   );
 }
