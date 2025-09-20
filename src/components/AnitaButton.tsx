@@ -1,32 +1,33 @@
 import { ReactNode, useState } from "react";
 
 interface Props {
-  children: string;
+  children: ReactNode;
   handleButtonClick: () => void;
-  unclickedClass?: "primary" | "secondary" | "danger";
-  clickedClass?: "primary" | "secondary" | "danger";
+  unclickedColor?: "secondary" | "info";
+  clickedColor?: "primary" | "danger";
 }
 
 const AnitaButton = ({
   children,
   handleButtonClick,
-  unclickedClass = "primary",
-  clickedClass = "secondary",
+  unclickedColor = "secondary",
+  clickedColor = "primary",
 }: Props) => {
   const [toggleClicked, setToggleClicked] = useState(-1);
-  const handleButtonClickandState = () => {
-    setToggleClicked(toggleClicked * -1);
+  const buttonClickAndStyle = () => {
     handleButtonClick();
+    setToggleClicked(toggleClicked * -1);
   };
+
   return (
     <button
       type="button"
       className={
         toggleClicked == 1
-          ? "btn btn-" + unclickedClass
-          : "btn btn-" + clickedClass
+          ? "btn btn-" + clickedColor
+          : "btn btn-" + unclickedColor
       }
-      onClick={handleButtonClickandState}
+      onClick={buttonClickAndStyle}
     >
       {children}
     </button>
