@@ -1,37 +1,17 @@
-import { useEffect, useRef, useState } from "react";
 import "./App.css";
-import ProductList from "./components/ProductList";
-import axios from "axios";
+import ContactList from "./components/ContactList";
+
+/*
+ * This exercise is straightforward: fetch the data
+ * from this url, and display it however you like. You can
+ * add libraries as you see fit, or not. This should be
+ * a brief exercise. There's no need to style properly, or
+ * handle pagination.
+ */
 
 function App() {
-  const [category, setCategory] = useState("");
-  const [users, setUsers] = useState([]);
-
-  const connect = () => {
-    console.log("Connecting");
-  };
-  const disconnect = () => {
-    console.log("Disconnecting");
-  };
-  useEffect(() => {
-    axios.get("https://jsonplaceholder.typicode.com/users").then((res) => {
-      console.log(res);
-    });
-  });
-
-  return (
-    <>
-      <select
-        className="form-select"
-        onChange={(event) => setCategory(event.target.value)}
-      >
-        <option value=""></option>
-        <option value="Clothing">Clothing</option>
-        <option value="Household">Household</option>
-      </select>
-      <ProductList category={category}></ProductList>
-    </>
-  );
+  const json_url = "https://gorest.co.in/public-api/users";
+  return <ContactList jsonUrl={json_url}></ContactList>;
 }
 
 export default App;
