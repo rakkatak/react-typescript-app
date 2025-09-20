@@ -29,7 +29,9 @@ npm run dev
   - when the data component changes, it updates the virtual dom
   - it then compares the virtual dom with the actual dom
   - react-dom is the library responsible for updating the dom
-    - <React.StrictMode> identifies problems within the react code
+    - <React.StrictMode> identifies problems within the react code.
+      - Causes the dom to be rendered 2x during development only
+      - Components are mounted (rendered), dismounted (cleanup) and mounted (rendered)
   - similar to react-dom, another lib react-native is used for mobile devices (i.e. react is not platform dependent)
     12345
 

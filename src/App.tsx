@@ -1,41 +1,35 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./App.css";
-import AlertButton from "./components/AlertButton";
-import Alert from "./components/Alert";
-import AnitaList from "./components/AnitaList";
+import ProductList from "./components/ProductList";
+import axios from "axios";
 
 function App() {
-  let [displayAlert, setDisplayAlert] = useState(false);
-  const handleButtonClick = () => {
-    console.log("handleButtonClick");
-    setDisplayAlert(true);
-  };
+  const [category, setCategory] = useState("");
+  const [users, setUsers] = useState([]);
 
-  const onAlertClose = () => {
-    console.log("onAlertClose");
-    setDisplayAlert(false);
+  const connect = () => {
+    console.log("Connecting");
   };
-
-  const onSelectListItem = (item: string) => {
-    console.log("Selected item:", item);
+  const disconnect = () => {
+    console.log("Disconnecting");
   };
-
-  const cities = ["Toronto", "Montreal", "St Johns"];
+  useEffect(() => {
+    axios.get("https://jsonplaceholder.typicode.com/users").then((res) => {
+      console.log(res);
+    });
+  });
 
   return (
     <>
-      {displayAlert && <Alert onClose={onAlertClose}>Holy Guacamole</Alert>}
-
-      <AlertButton
-        handleButtonClick={handleButtonClick}
-        buttonColour="primary"
-      ></AlertButton>
-
-      <AnitaList
-        items={cities}
-        heading={"Cool Cities"}
-        onSelectItem={onSelectListItem}
-      ></AnitaList>
+      <select
+        className="form-select"
+        onChange={(event) => setCategory(event.target.value)}
+      >
+        <option value=""></option>
+        <option value="Clothing">Clothing</option>
+        <option value="Household">Household</option>
+      </select>
+      <ProductList category={category}></ProductList>
     </>
   );
 }
