@@ -10,8 +10,8 @@ interface Contact {
 }
 
 enum Gender {
-  male = "male",
-  female = "female",
+  male = "Male",
+  female = "Female",
   nonBinary = "non-binary",
   transgender = "transgender",
   agender = "agender",
@@ -32,7 +32,7 @@ const ContactList = ({ jsonUrl }: Props) => {
   useEffect(() => {
     axios.get(jsonUrl).then((res) => {
       setContacts(res.data.data);
-      // console.log('contacts', contacts);
+      //   console.log("contacts", contacts);
     });
   }, []);
 
