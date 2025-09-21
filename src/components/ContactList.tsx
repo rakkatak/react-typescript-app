@@ -1,26 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-
-interface Contact {
-  id: number;
-  name: string;
-  email: string;
-  gender: Gender;
-  status: Status;
-}
-
-enum Gender {
-  male = "Male",
-  female = "Female",
-  nonBinary = "non-binary",
-  transgender = "transgender",
-  agender = "agender",
-}
-
-enum Status {
-  inactive = "inactive",
-  active = "active",
-}
+import { Contact } from "../models/Contact";
 
 interface Props {
   jsonUrl: string;
