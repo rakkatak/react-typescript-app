@@ -1,24 +1,14 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
 import { Contact } from "../models/Contact";
+import "./ContactTable.css";
 
-interface Props {
-  jsonUrl: string;
+interface ContactTableProps {
+  contacts: Contact[];
 }
 
-const ContactList = ({ jsonUrl }: Props) => {
-  const [contacts, setContacts] = useState<Contact[]>([]);
-
-  useEffect(() => {
-    axios.get(jsonUrl).then((res) => {
-      setContacts(res.data.data);
-      //   console.log("contacts", contacts);
-    });
-  }, []);
-
+const ContactTable = ({ contacts }: ContactTableProps) => {
   return (
     <>
-      <table>
+      <table className="table">
         <thead>
           <tr>
             <th>Id</th>
@@ -46,4 +36,4 @@ const ContactList = ({ jsonUrl }: Props) => {
   );
 };
 
-export default ContactList;
+export default ContactTable;
