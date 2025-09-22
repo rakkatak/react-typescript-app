@@ -3,6 +3,7 @@ import ContactTable from "./components/ContactTable";
 import { getContacts } from "./utils/CommonUtils";
 import { Contact } from "./models/Contact";
 import { useEffect, useState } from "react";
+import { JsonUrls } from "./utils/JsonUrls";
 
 /*
  * Instructions:
@@ -23,10 +24,13 @@ import { useEffect, useState } from "react";
  */
 
 function App() {
-  const json_url = "https://gorest.co.in/public-api/users";
-  // 2 invalid json_url values for testing purposes:
-  // const json_url = 'https://gorest.co.in/public-api/usersx';
-  // const json_url = 'https://gorest.co.in/public/v2/users';
+  const json_url = JsonUrls.GetContacts;
+  // ----- TODO: Remove test code -----
+  // Comment the line above and unomment one of 2 invalid json_url values below
+  // for testing purposes:
+  // const json_url = JsonUrls.GetContactsInvalidUrl;
+  // const json_url = JsonUrls.GetContactsInvalidJson;
+  // ----- TODO: Remove test code end -----
   const [contacts, setContacts] = useState<Contact[]>([]);
   const [errorMsg, setErrorMsg] = useState("");
 
@@ -42,6 +46,8 @@ function App() {
       }
     );
   }, [json_url]);
+
+  console.log("contacts", contacts);
 
   // Render a ContactList using the contact array
   return errorMsg.length === 0 ? (

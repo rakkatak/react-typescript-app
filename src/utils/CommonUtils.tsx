@@ -28,7 +28,7 @@ export function getContacts(
         setErrorMsg("");
       } else {
         const errorMsg: string =
-          "An error occurred. The provided url is invalid.";
+          "An error occurred. The provided url does not return the expected response format.";
         setErrorMsg(errorMsg);
         console.log(errorMsg);
       }
