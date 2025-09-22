@@ -25,8 +25,8 @@ import { useEffect, useState } from "react";
 function App() {
   const json_url = "https://gorest.co.in/public-api/users";
   // 2 invalid json_url values for testing purposes:
-  // const json_url = "https://gorest.co.in/public-api/usersx";
-  // const json_url = "https://gorest.co.in/public/v2/users";
+  // const json_url = 'https://gorest.co.in/public-api/usersx';
+  // const json_url = 'https://gorest.co.in/public/v2/users';
   const [contacts, setContacts] = useState<Contact[]>([]);
   const [errorMsg, setErrorMsg] = useState("");
 
@@ -41,7 +41,7 @@ function App() {
         setErrorMsg(errorMessage);
       }
     );
-  }, []);
+  }, [json_url]);
 
   // Render a ContactList using the contact array
   return errorMsg.length === 0 ? (
