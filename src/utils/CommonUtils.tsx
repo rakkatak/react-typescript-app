@@ -18,7 +18,7 @@ export function getContacts(
   setContacts: (contacts: Contact[]) => void,
   setErrorMsg: (errorMessage: string) => void
 ) {
-  var contacts: Contact[] = [];
+  let contacts: Contact[] = [];
   axios
     .get(jsonUrl, { timeout: 5000 })
     .then((res) => {
