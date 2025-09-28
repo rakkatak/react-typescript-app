@@ -29,9 +29,10 @@ npm run dev
   - when the data component changes, it updates the virtual dom
   - it then compares the virtual dom with the actual dom
   - react-dom is the library responsible for updating the dom
-    - <React.StrictMode> identifies problems within the react code
+    - <React.StrictMode> identifies problems within the react code.
+      - Causes the dom to be rendered 2x during development only
+      - Components are mounted (rendered), dismounted (cleanup) and mounted (rendered)
   - similar to react-dom, another lib react-native is used for mobile devices (i.e. react is not platform dependent)
-    12345
 
   - react is a javascript library to build a UI
   - library = tool
@@ -44,6 +45,16 @@ npm run dev
     - To work around you can wrap with a div. This adds an div to the dom that really doesn't do anything.
     - Or, you can use a Fragment. This prevents the div added simply to make React compile. The following syntax can be used <></>
     - Components can have state (see below) and be passed Props (see below)
+
+  #### State
+
+  - React updates state asynchronously.
+  - State is stored outside of components i.e. so they are not overwritten on a re-render
+  - State hooks must used at the top level of our component. This is because react relies on the order of the useState calls, to store state for a given component. If useState is nested within a construct like an if statement, the order in which a state hook is called will be affected.
+
+    - For performance reasons, React allows several updates to accumulate (i.e. it batches updates), before re-rendering the component
+
+  - State is stored outside of the component
   - useState:
     - This method returns an array with a variable and setter method
     - You pass useState a default value

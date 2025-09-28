@@ -7,13 +7,13 @@ import AnitaList from "./components/AnitaList";
 function App() {
   let [displayAlert, setDisplayAlert] = useState(false);
   const handleButtonClick = () => {
-    console.log("handleButtonClick");
     setDisplayAlert(true);
+    console.log("handleButtonClick", displayAlert);
   };
 
   const onAlertClose = () => {
-    console.log("onAlertClose");
     setDisplayAlert(false);
+    console.log("onAlertClose", displayAlert);
   };
 
   const onSelectListItem = (item: string) => {
