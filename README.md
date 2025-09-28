@@ -32,6 +32,7 @@ npm run dev
     - <React.StrictMode> identifies problems within the react code.
       - Causes the dom to be rendered 2x during development only
       - Components are mounted (rendered), dismounted (cleanup) and mounted (rendered)
+      - Catches things like impure component functions i.e. functions that return different values depending on the execution
   - similar to react-dom, another lib react-native is used for mobile devices (i.e. react is not platform dependent)
 
   - react is a javascript library to build a UI
@@ -51,10 +52,8 @@ npm run dev
   - React updates state asynchronously.
   - State is stored outside of components i.e. so they are not overwritten on a re-render
   - State hooks must used at the top level of our component. This is because react relies on the order of the useState calls, to store state for a given component. If useState is nested within a construct like an if statement, the order in which a state hook is called will be affected.
+  - For performance reasons, React allows several updates to accumulate (i.e. it batches updates), before re-rendering the component
 
-    - For performance reasons, React allows several updates to accumulate (i.e. it batches updates), before re-rendering the component
-
-  - State is stored outside of the component
   - useState:
     - This method returns an array with a variable and setter method
     - You pass useState a default value
