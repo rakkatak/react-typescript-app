@@ -18,6 +18,11 @@ function App() {
     },
   });
   let [tags, setTags] = useState(["tabla", "sitar", "indian classical"]);
+  let [bugs, setBugs] = useState([
+    { id: 1, title: "Bug 1", fixed: false },
+    { id: 2, title: "Bug 2", fixed: false },
+  ]);
+
   const handleButtonClick = () => {
     setDisplayAlert(true);
     console.log("handleButtonClick", displayAlert);
@@ -47,13 +52,27 @@ function App() {
 
     console.log("updatedTags", updatedTags1);
 
-    let updatedTags2 = updatedTags1.map((tag) => {
-      return tag === "sitar" ? "sur bahar" : tag;
-    });
+    // let updatedTags2 = updatedTags1.map((tag) => {
+    //   return tag === "sitar" ? "sur bahar" : tag;
+    // });
+
+    let updatedTags2 = updatedTags1.map((tag) =>
+      tag === "sitar" ? "sur bahar" : tag
+    );
+    // });
 
     console.log("updatedTags2", updatedTags2);
 
     setTags(updatedTags2);
+  };
+
+  // On click, mark the bug as fixed
+  const handleButtonClick4 = () => {
+    let updatedBugs = bugs.map((bug) =>
+      bug.id === 1 ? { ...bug, fixed: true } : bug
+    );
+
+    setBugs(updatedBugs);
   };
 
   const onAlertClose = () => {
@@ -76,11 +95,15 @@ function App() {
         buttonColour="primary"
       ></AlertButton>
       <div>
-        Tags: &nbsp;
-        {tags.map((tag, index) => {
-          return <div key={index}>{tag}</div>;
+        Bugs: &nbsp;
+        {bugs.map((bug, index) => {
+          return (
+            <div key={index}>
+              {bug.id}, {bug.title}, {bug.fixed.toString()}
+            </div>
+          );
         })}
-        <button onClick={handleButtonClick3}>click me</button>
+        <button onClick={handleButtonClick4}>click me</button>
       </div>
 
       <AnitaList
