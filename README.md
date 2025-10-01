@@ -46,6 +46,15 @@ npm run dev
     - To work around you can wrap with a div. This adds an div to the dom that really doesn't do anything.
     - Or, you can use a Fragment. This prevents the div added simply to make React compile. The following syntax can be used <></>
     - Components can have state (see below) and be passed Props (see below)
+  - Component functions should be pure i.e. should return the same thing given the same parameters. This is for performance reasons. If the input has not changed, react will not re-render. To keep changes pure, keep changes out of the render phase (i.e. don't change an object that existed before thee render phase)
+
+  i.e.
+
+  let count=0;
+  const Message = (0 => {
+  count++;
+  return <div>Message {count}</div>
+  })
 
   #### State
 
