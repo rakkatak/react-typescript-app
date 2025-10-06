@@ -4,6 +4,8 @@ import { Expense } from "../models/Expense";
 interface Props {
   addExpense: (expense: Expense) => void;
 }
+
+// TODO: Sum expenses, add delete button
 const ExpenseForm = ({ addExpense }: Props) => {
   const {
     register,

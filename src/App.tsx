@@ -12,29 +12,31 @@ function App() {
 
   const addExpense = (e: Expense) => {
     setExpenses([...expenses, e]);
-    setFilteredExpenses([...expenses, e]);
-    console.log("Expenses", expenses);
+    if (e.category === categoryFilter) {
+      setFilteredExpenses([...filteredExpenses, e]);
+    }
+    // console.log("Expenses", expenses);
   };
 
-  const filterByCategory = () => {
-    if (categoryFilter !== "") {
-      const updatedExpenses = expenses.filter(
-        (expense) => expense.category === categoryFilter
+  const filterByCategory = (categoryFilterParam: string) => {
+    // console.log("categoryFilter", categoryFilterParam);
+    setCategoryFilter(categoryFilterParam);
+    if (categoryFilterParam !== "") {
+      // console.log("categoryFilter not empty");
+      setFilteredExpenses(
+        expenses.filter((expense) => expense.category === categoryFilterParam)
       );
-      setFilteredExpenses(updatedExpenses);
-    } else {
-      setFilteredExpenses(expenses);
+      // console.log("categoryFilter not empty, updatedExpenses", updatedExpenses);
     }
   };
 
   return (
     <>
       <ExpenseForm addExpense={addExpense}></ExpenseForm>
-      <ExpenseFilter
-        filterByCategory={filterByCategory}
-        setCategoryFilter={setCategoryFilter}
-      ></ExpenseFilter>
-      <ExpenseTable expenses={filteredExpenses}></ExpenseTable>
+      <ExpenseFilter filterByCategory={filterByCategory}></ExpenseFilter>
+      <ExpenseTable
+        expenses={categoryFilter === "" ? expenses : filteredExpenses}
+      ></ExpenseTable>
     </>
   );
 }
