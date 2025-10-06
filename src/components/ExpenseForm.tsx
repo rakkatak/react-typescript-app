@@ -1,4 +1,4 @@
-import { FieldValues, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { Expense } from "../models/Expense";
 
 interface Props {
@@ -71,7 +71,7 @@ const ExpenseForm = ({ addExpense }: Props) => {
           {errors.category?.type === "required" && (
             <p className="text-danger">Category is required</p>
           )}
-          <button className="btn btn-primary" type="submit">
+          <button disabled={!isValid} className="btn btn-primary" type="submit">
             Submit
           </button>
         </div>
