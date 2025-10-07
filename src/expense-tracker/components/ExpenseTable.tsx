@@ -6,18 +6,10 @@ interface Props {
   deleteItem: (e: Expense) => void;
 }
 
-// TODO: add delete button
 const ExpenseTable = ({ expenses, deleteItem }: Props) => {
-  const formatAsDollarAmount = (amount: number): string => {
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
-    }).format(amount);
-  };
-
   return (
     <>
-      <table className="table">
+      <table className="table table-bordered">
         <thead>
           <tr>
             <th>Description</th>
@@ -31,14 +23,14 @@ const ExpenseTable = ({ expenses, deleteItem }: Props) => {
             return (
               <tr key={index}>
                 <th>{expense.description}</th>
-                <th>{formatAsDollarAmount(expense.amount)}</th>
+                <th>${Number(expense.amount).toFixed(2)}</th>
                 <th>{expense.category}</th>
                 <th>
                   <button
                     onClick={() => {
                       deleteItem(expense);
                     }}
-                    className="btn btn-danger"
+                    className="btn btn-outline-danger"
                   >
                     Delete
                   </button>
@@ -46,18 +38,21 @@ const ExpenseTable = ({ expenses, deleteItem }: Props) => {
               </tr>
             );
           })}
+        </tbody>
+        <tfoot>
           <tr>
             <th>Total</th>
             <th>
-              {formatAsDollarAmount(
-                expenses.reduce((sum: number, expense: Expense) => {
+              $
+              {expenses
+                .reduce((sum: number, expense: Expense) => {
                   return sum + Number(expense.amount);
                 }, 0)
-              )}
+                .toFixed(2)}
             </th>
             <th></th>
           </tr>
-        </tbody>
+        </tfoot>
       </table>
     </>
   );

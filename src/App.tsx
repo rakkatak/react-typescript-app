@@ -7,32 +7,26 @@ import ExpenseFilter from "./expense-tracker/components/ExpenseFilter";
 
 function App() {
   const [expenses, setExpenses] = useState<Expense[]>([]);
-  const [filteredExpenses, setFilteredExpenses] = useState<Expense[]>([]);
   const [categoryFilter, setCategoryFilter] = useState("");
 
+  const visibleExpenses =
+    categoryFilter === ""
+      ? expenses
+      : expenses.filter((expense) => expense.category === categoryFilter);
+
   const addExpense = (e: Expense) => {
+    e.id = expenses.length + 1;
     setExpenses([...expenses, e]);
-    if (e.category === categoryFilter) {
-      setFilteredExpenses([...filteredExpenses, e]);
-    }
-    // console.log("Expenses", expenses);
   };
 
   const filterByCategory = (categoryFilterParam: string) => {
     // console.log("categoryFilter", categoryFilterParam);
     setCategoryFilter(categoryFilterParam);
-    if (categoryFilterParam !== "") {
-      // console.log("categoryFilter not empty");
-      setFilteredExpenses(
-        expenses.filter((expense) => expense.category === categoryFilterParam)
-      );
-      // console.log("categoryFilter not empty, updatedExpenses", updatedExpenses);
-    }
   };
 
   const deleteExpenseItem = (expenseToBeDeleted: Expense) => {
     let updatedExpense: Expense[] = expenses.filter(
-      (expense) => expense !== expenseToBeDeleted
+      (expense) => expense.id !== expenseToBeDeleted.id
     );
     setExpenses(updatedExpense);
   };
@@ -43,7 +37,7 @@ function App() {
       <ExpenseFilter filterByCategory={filterByCategory}></ExpenseFilter>
       <ExpenseTable
         deleteItem={deleteExpenseItem}
-        expenses={categoryFilter === "" ? expenses : filteredExpenses}
+        expenses={visibleExpenses}
       ></ExpenseTable>
     </>
   );
