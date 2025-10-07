@@ -1,35 +1,18 @@
-import { useEffect, useRef, useState } from "react";
-import "./App.css";
-import ProductList from "./components/ProductList";
-import axios from "axios";
+import { useEffect, useRef } from "react";
+import Counter from "./components/Counter";
 
 function App() {
-  const [category, setCategory] = useState("");
-  const [users, setUsers] = useState([]);
+  const ref1 = useRef<HTMLInputElement>(null);
+  const ref2 = useRef<HTMLInputElement>(null);
 
-  const connect = () => {
-    console.log("Connecting");
-  };
-  const disconnect = () => {
-    console.log("Disconnecting");
-  };
   useEffect(() => {
-    axios.get("https://jsonplaceholder.typicode.com/users").then((res) => {
-      console.log(res);
-    });
+    if (ref2.current) ref2.current.focus();
   });
 
   return (
     <>
-      <select
-        className="form-select"
-        onChange={(event) => setCategory(event.target.value)}
-      >
-        <option value=""></option>
-        <option value="Clothing">Clothing</option>
-        <option value="Household">Household</option>
-      </select>
-      <ProductList category={category}></ProductList>
+      <input id="input1" type="text" className="form-control" ref={ref1} />
+      <input id="input2" type="text" className="form-control" ref={ref2} />
     </>
   );
 }

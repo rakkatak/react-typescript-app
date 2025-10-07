@@ -75,6 +75,11 @@ npm run dev
       ***
       <Alert>Pay attention <span>fool</span>!</Alert>
 
+  ### useEffect
+
+  - Used to perform operations after a component render
+  - If there are multiple useEffects, with different responsibilities, will run in order after each render.
+
   ### JSX
 
   - There is no such thing as a for loop, so use the map function instead
