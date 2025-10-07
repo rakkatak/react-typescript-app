@@ -1,9 +1,9 @@
 import { useState } from "react";
 import "./App.css";
-import ExpenseForm from "./components/ExpenseForm";
+import ExpenseForm from "./expense-tracker/components/ExpenseForm";
 import { Expense } from "./models/Expense";
-import ExpenseTable from "./components/ExpenseTable";
-import ExpenseFilter from "./components/ExpenseFilter";
+import ExpenseTable from "./expense-tracker/components/ExpenseTable";
+import ExpenseFilter from "./expense-tracker/components/ExpenseFilter";
 
 function App() {
   const [expenses, setExpenses] = useState<Expense[]>([]);

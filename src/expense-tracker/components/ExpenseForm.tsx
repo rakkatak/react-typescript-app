@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { Expense } from "../models/Expense";
+import { Expense } from "../../models/Expense";
 
 interface Props {
   addExpense: (expense: Expense) => void;
