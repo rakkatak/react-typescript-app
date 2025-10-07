@@ -15,8 +15,7 @@ function App() {
       : expenses.filter((expense) => expense.category === categoryFilter);
 
   const addExpense = (e: Expense) => {
-    e.id = expenses.length + 1;
-    setExpenses([...expenses, e]);
+    setExpenses([...expenses, { ...e, id: expenses.length + 1 }]);
   };
 
   const filterByCategory = (categoryFilterParam: string) => {

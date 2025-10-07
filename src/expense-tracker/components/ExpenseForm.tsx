@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import { Expense } from "../../models/Expense";
+import { categories } from "../../models/Categories";
 
 interface Props {
   addExpense: (expense: Expense) => void;
@@ -66,9 +67,13 @@ const ExpenseForm = ({ addExpense }: Props) => {
             <option disabled value="">
               Select an option
             </option>
-            <option value="Groceries">Groceries</option>
-            <option value="Entertainment">Entertainment</option>
-            <option value="Transportation">Transportation</option>
+            {categories.map((category) => {
+              return (
+                <option key={category} value={category}>
+                  {category}
+                </option>
+              );
+            })}
           </select>
 
           {errors.category?.type === "required" && (
