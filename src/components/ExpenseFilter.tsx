@@ -16,11 +16,10 @@ const ExpenseFilter = ({ filterByCategory: filterByCategory }: Props) => {
         defaultValue=""
         onChange={onChangeFilter}
       >
-        {" "}
         <option value="">All categories</option>
-        <option value="groceries">Groceries</option>
-        <option value="entertainment">Entertainment</option>
-        <option value="transportation">Transportation</option>
+        <option value="Groceries">Groceries</option>
+        <option value="Entertainment">Entertainment</option>
+        <option value="Transportation">Transportation</option>
       </select>
     </>
   );

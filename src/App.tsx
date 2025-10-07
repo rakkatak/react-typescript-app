@@ -30,11 +30,19 @@ function App() {
     }
   };
 
+  const deleteExpenseItem = (expenseToBeDeleted: Expense) => {
+    let updatedExpense: Expense[] = expenses.filter(
+      (expense) => expense !== expenseToBeDeleted
+    );
+    setExpenses(updatedExpense);
+  };
+
   return (
     <>
       <ExpenseForm addExpense={addExpense}></ExpenseForm>
       <ExpenseFilter filterByCategory={filterByCategory}></ExpenseFilter>
       <ExpenseTable
+        deleteItem={deleteExpenseItem}
         expenses={categoryFilter === "" ? expenses : filteredExpenses}
       ></ExpenseTable>
     </>

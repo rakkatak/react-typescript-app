@@ -5,17 +5,18 @@ interface Props {
   addExpense: (expense: Expense) => void;
 }
 
-// TODO: Sum expenses, add delete button
 const ExpenseForm = ({ addExpense }: Props) => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    reset,
+    formState: { errors },
   } = useForm<Expense>();
 
   const onSubmit = (data: Expense) => {
-    console.log(data);
+    // console.log(data);
     addExpense(data);
+    reset();
   };
 
   return (
@@ -65,15 +66,15 @@ const ExpenseForm = ({ addExpense }: Props) => {
             <option disabled value="">
               Select an option
             </option>
-            <option value="groceries">Groceries</option>
-            <option value="entertainment">Entertainment</option>
-            <option value="transportation">Transportation</option>
+            <option value="Groceries">Groceries</option>
+            <option value="Entertainment">Entertainment</option>
+            <option value="Transportation">Transportation</option>
           </select>
 
           {errors.category?.type === "required" && (
             <p className="text-danger">Category is required</p>
           )}
-          <button disabled={!isValid} className="btn btn-primary" type="submit">
+          <button className="btn btn-primary" type="submit">
             Submit
           </button>
         </div>
