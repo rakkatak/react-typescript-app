@@ -1,5 +1,6 @@
 import { Contact } from "../models/Contact";
 import axios from "axios";
+import { ContactResponse } from "../models/ContactResponse";
 
 /**
  * Function that accepts the contact url and sets the contacts within the callback method.
@@ -20,7 +21,7 @@ export function getContacts(
 ) {
   let contacts: Contact[] = [];
   axios
-    .get(jsonUrl, { timeout: 5000 })
+    .get<ContactResponse>(jsonUrl, { timeout: 5000 })
     .then((res) => {
       contacts = res.data.data;
       if (res.data && res.data.data) {
