@@ -22,6 +22,10 @@ npm run dev
   - Interfaces, Enums (named constants), Generics, Modules
 - Typescript code is transpiled into plain JavaScript using the TransScript compiler to ensure compatability with Javascript environements (i.e. browsers, Node.js etc.)
 
+## Create a react app
+
+npm create vite@latest
+
 ## React
 
 - react takes a component tree and builds a virtual dom (in memory representation of our component tree)

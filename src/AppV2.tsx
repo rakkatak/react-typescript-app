@@ -3,20 +3,21 @@ import "./App.css";
 import ProductList from "./components/ProductList";
 import axios from "axios";
 
+interface User {
+  id: number;
+  name: string;
+}
+
 function App() {
   const [category, setCategory] = useState("");
   const [users, setUsers] = useState([]);
 
-  const connect = () => {
-    console.log("Connecting");
-  };
-  const disconnect = () => {
-    console.log("Disconnecting");
-  };
   useEffect(() => {
-    axios.get("https://jsonplaceholder.typicode.com/users").then((res) => {
-      console.log(res);
-    });
+    axios
+      .get<User[]>("https://jsonplaceholder.typicode.com/users")
+      .then((res) => {
+        console.log(res);
+      });
   });
 
   return (
