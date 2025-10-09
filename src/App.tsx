@@ -27,26 +27,44 @@ function App() {
   // In an optimistic update we update the UI before the server
   const deleteUser = (userId: number) => {
     const originalUsers = [...users];
-    const updatedList: User[] = users.filter((user) => {
-      return user.id != userId;
-    });
     setIsLoading(true);
     setError("");
 
-    //setUsers(updatedList);
+    // setUsers(updatedUsers);
     // Set users functional form below
     // Set users accepts a function as an argument
     // the function receives the most up to date state as prevUsers
-    setUsers((prevUsers) => prevUsers.filter((user) => user.id !== userId));
-    console.log("Delete user", updatedList);
     axios
       .delete("https://jsonplaceholder.typicode.com/users/" + userId)
       .then(() => {
         console.log(`User ${userId} deleted successfully`);
+        setUsers((prevUsers) => prevUsers.filter((user) => user.id !== userId));
       })
       .catch((err) => {
         setError(err.message);
         setUsers(originalUsers);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
+
+  const updateUser = (user: User) => {
+    setIsLoading(true);
+    const updatedUser = { ...user, name: user.name + "!" };
+
+    axios
+      .patch<User>(
+        "https://jsonplaceholder.typicode.com/users/" + user.id,
+        updatedUser
+      )
+      .then((res) => {
+        setUsers(
+          users.map((user: User) => (user.id === res.data.id ? res.data : user))
+        );
+      })
+      .catch((err) => {
+        setError(err);
       })
       .finally(() => {
         setIsLoading(false);
@@ -113,6 +131,7 @@ function App() {
     };
 
     setIsLoading(true);
+    setError("");
     axios
       .post("https://jsonplaceholder.typicode.com/users", newUser)
       .then(({ data: newUser }) => {
@@ -142,7 +161,11 @@ function App() {
       >
         Add User
       </button>
-      <UserList users={users} deleteUser={deleteUser}></UserList>
+      <UserList
+        users={users}
+        updateUser={updateUser}
+        deleteUser={deleteUser}
+      ></UserList>
     </>
   );
 }
