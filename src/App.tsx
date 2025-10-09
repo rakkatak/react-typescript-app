@@ -3,6 +3,7 @@ import "./App.css";
 import axios, { AxiosError } from "axios";
 import { User } from "./models/User";
 import UserList from "./components/UserList";
+import { apiClient } from "./services/api-client";
 
 function App() {
   const [users, setUsers] = useState<User[]>([]);
@@ -11,8 +12,8 @@ function App() {
 
   useEffect(() => {
     setIsLoading(true);
-    axios
-      .get<User[]>("https://jsonplaceholder.typicode.com/users")
+    apiClient
+      .get<User[]>("/users")
       .then((res) => {
         setUsers(res.data);
       })
@@ -34,8 +35,8 @@ function App() {
     // Set users functional form below
     // Set users accepts a function as an argument
     // the function receives the most up to date state as prevUsers
-    axios
-      .delete("https://jsonplaceholder.typicode.com/users/" + userId)
+    apiClient
+      .delete("/users/" + userId)
       .then(() => {
         console.log(`User ${userId} deleted successfully`);
         setUsers((prevUsers) => prevUsers.filter((user) => user.id !== userId));
@@ -53,11 +54,8 @@ function App() {
     setIsLoading(true);
     const updatedUser = { ...user, name: user.name + "!" };
 
-    axios
-      .patch<User>(
-        "https://jsonplaceholder.typicode.com/users/" + user.id,
-        updatedUser
-      )
+    apiClient
+      .patch<User>("/users/" + user.id, updatedUser)
       .then((res) => {
         setUsers(
           users.map((user: User) => (user.id === res.data.id ? res.data : user))
@@ -70,6 +68,52 @@ function App() {
         setIsLoading(false);
       });
   };
+
+  const addUser = () => {
+    const originalUsers = [...users];
+    const newUser: User = {
+      id: 0,
+      name: "Anita",
+    };
+
+    setIsLoading(true);
+    setError("");
+    apiClient
+      .post("/users", newUser)
+      .then(({ data: newUser }) => {
+        // setUsers([...users, newUser]);
+        setUsers((prevUsers) => [...prevUsers, newUser]);
+      })
+      .catch((err) => {
+        setError(err.message);
+        setUsers(originalUsers);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
+
+  return (
+    <>
+      {isLoading === true && (
+        <div className="spinner-border" role="status"></div>
+      )}
+      {error !== "" && <div className="text-danger">{error}</div>}
+      <button
+        className="btn btn-primary"
+        onClick={() => {
+          addUser();
+        }}
+      >
+        Add User
+      </button>
+      <UserList
+        users={users}
+        updateUser={updateUser}
+        deleteUser={deleteUser}
+      ></UserList>
+    </>
+  );
 
   // useEffect(() => {
   //   const fetchUsers = async () => {
@@ -121,53 +165,6 @@ function App() {
 
   //   fetchUsers();
   // }, []);
-
-  // Optimistic add, update the UI then the server
-  const addUser = () => {
-    const originalUsers = [...users];
-    const newUser: User = {
-      id: 0,
-      name: "Anita",
-    };
-
-    setIsLoading(true);
-    setError("");
-    axios
-      .post("https://jsonplaceholder.typicode.com/users", newUser)
-      .then(({ data: newUser }) => {
-        // setUsers([...users, newUser]);
-        setUsers((prevUsers) => [...prevUsers, newUser]);
-      })
-      .catch((err) => {
-        setError(err.message);
-        setUsers(originalUsers);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  };
-
-  return (
-    <>
-      {isLoading === true && (
-        <div className="spinner-border" role="status"></div>
-      )}
-      {error !== "" && <div className="text-danger">{error}</div>}
-      <button
-        className="btn btn-primary"
-        onClick={() => {
-          addUser();
-        }}
-      >
-        Add User
-      </button>
-      <UserList
-        users={users}
-        updateUser={updateUser}
-        deleteUser={deleteUser}
-      ></UserList>
-    </>
-  );
 }
 
 export default App;
