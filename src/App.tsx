@@ -1,28 +1,32 @@
 import { useEffect, useRef, useState } from "react";
 import "./App.css";
-import axios, { AxiosError } from "axios";
 import { User } from "./models/User";
 import UserList from "./components/UserList";
-import { apiClient } from "./services/api-client";
+import { CanceledError } from "./services/api-client";
+import userService from "./services/user-service";
 
 function App() {
   const [users, setUsers] = useState<User[]>([]);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const httpService = userService.create();
 
   useEffect(() => {
     setIsLoading(true);
-    apiClient
-      .get<User[]>("/users")
+    const { request, cancel } = httpService.getAll<User>();
+    request
       .then((res) => {
         setUsers(res.data);
       })
       .catch((err) => {
+        if (err instanceof CanceledError) return;
         setError(err.message);
       })
       .finally(() => {
         setIsLoading(false);
       });
+
+    return () => cancel();
   }, []);
 
   // In an optimistic update we update the UI before the server
@@ -31,12 +35,8 @@ function App() {
     setIsLoading(true);
     setError("");
 
-    // setUsers(updatedUsers);
-    // Set users functional form below
-    // Set users accepts a function as an argument
-    // the function receives the most up to date state as prevUsers
-    apiClient
-      .delete("/users/" + userId)
+    httpService
+      .delete(userId)
       .then(() => {
         console.log(`User ${userId} deleted successfully`);
         setUsers((prevUsers) => prevUsers.filter((user) => user.id !== userId));
@@ -54,8 +54,8 @@ function App() {
     setIsLoading(true);
     const updatedUser = { ...user, name: user.name + "!" };
 
-    apiClient
-      .patch<User>("/users/" + user.id, updatedUser)
+    httpService
+      .update(updatedUser)
       .then((res) => {
         setUsers(
           users.map((user: User) => (user.id === res.data.id ? res.data : user))
@@ -78,8 +78,8 @@ function App() {
 
     setIsLoading(true);
     setError("");
-    apiClient
-      .post("/users", newUser)
+    httpService
+      .add(newUser)
       .then(({ data: newUser }) => {
         // setUsers([...users, newUser]);
         setUsers((prevUsers) => [...prevUsers, newUser]);
