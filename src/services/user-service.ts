@@ -1,12 +1,8 @@
-import { User } from "../models/User";
-import { apiClient, CanceledError } from "./api-client";
+// import { User } from "../models/User";
+// import { CanceledError } from "./api-client";
 import {HttpService, create} from "./http-service";
 
 class UserService {
-    create(): HttpService {
-        const service =  create("/users/");
-        return service;
-    }
     // getUsers() {
     //     const controller = new AbortController();
     //     const request = apiClient.get<User[]>("/users", { signal: controller.signal });
@@ -29,4 +25,4 @@ class UserService {
     
 }
 
-export default new UserService();
+export default create("/users/");

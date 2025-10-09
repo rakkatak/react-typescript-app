@@ -4,30 +4,11 @@ import { User } from "./models/User";
 import UserList from "./components/UserList";
 import { CanceledError } from "./services/api-client";
 import userService from "./services/user-service";
+import { useUsers } from "./hooks/useUsers";
 
 function App() {
-  const [users, setUsers] = useState<User[]>([]);
-  const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const httpService = userService.create();
-
-  useEffect(() => {
-    setIsLoading(true);
-    const { request, cancel } = httpService.getAll<User>();
-    request
-      .then((res) => {
-        setUsers(res.data);
-      })
-      .catch((err) => {
-        if (err instanceof CanceledError) return;
-        setError(err.message);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-
-    return () => cancel();
-  }, []);
+  const { users, error, isLoading, setUsers, setError, setIsLoading } =
+    useUsers();
 
   // In an optimistic update we update the UI before the server
   const deleteUser = (userId: number) => {
@@ -35,7 +16,7 @@ function App() {
     setIsLoading(true);
     setError("");
 
-    httpService
+    userService
       .delete(userId)
       .then(() => {
         console.log(`User ${userId} deleted successfully`);
@@ -54,7 +35,7 @@ function App() {
     setIsLoading(true);
     const updatedUser = { ...user, name: user.name + "!" };
 
-    httpService
+    userService
       .update(updatedUser)
       .then((res) => {
         setUsers(
@@ -78,7 +59,7 @@ function App() {
 
     setIsLoading(true);
     setError("");
-    httpService
+    userService
       .add(newUser)
       .then(({ data: newUser }) => {
         // setUsers([...users, newUser]);
